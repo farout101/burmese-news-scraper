@@ -40,5 +40,3 @@ class MyawadyEducationSpider(scrapy.Spider):
                     item['source'] = 'myawady.net.mm'
                     item['url'] = response.url
                     yield item
-
-
