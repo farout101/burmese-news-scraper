@@ -1,31 +1,31 @@
 import scrapy
-from burmese_news.items import BurmeseNewsItem
+from burmese_news_scraper.items import BurmeseNewsItem
 
-class MyawadyEducationSpider(scrapy.Spider):
-    name = "myawady_education"
+class MyawadyTechSpider(scrapy.Spider):
+    name = "myawady_tech"
     allowed_domains = ["myawady.net.mm"]
     start_urls = [
-        "https://www.myawady.net.mm/education"
+        "https://www.myawady.net.mm/tech"
     ]
 
     def parse(self, response):
-        # 1. Get all article links on the current page
+        # Extract article links
         article_links = response.css('ul.blazy li.grid a::attr(href)').getall()
         for link in article_links:
             yield response.follow(link, self.parse_article)
 
-        # 2. Handle pagination
+        # Pagination
         next_page = response.css('ul.pagination li.next a::attr(href)').get()
         if next_page:
             yield response.follow(next_page, self.parse)
 
-    MIN_LENGTH = 20  # Minimum length for a sentence to be considered valid
+    MIN_LENGTH = 20  # Minimum characters per sentence
 
     def parse_article(self, response):
         paragraphs = response.css('div.field-name-body p::text').getall()
         text = ' '.join([p.strip() for p in paragraphs if p.strip()])
 
-        if text:    
+        if text:
             # Split text by Burmese full stop "။"
             sentences = [s.strip() + "။" for s in text.split("။") if len(s.strip()) >= self.MIN_LENGTH]
 
@@ -36,7 +36,7 @@ class MyawadyEducationSpider(scrapy.Spider):
                     item = BurmeseNewsItem()
                     item['text'] = chunk
                     # Set category depending on spider
-                    item['category'] = getattr(self, 'category', 'Education')
+                    item['category'] = getattr(self, 'category', 'Technology')
                     item['source'] = 'myawady.net.mm'
                     item['url'] = response.url
                     yield item

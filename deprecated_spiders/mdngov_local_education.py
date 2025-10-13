@@ -1,5 +1,5 @@
 import scrapy
-from burmese_news.items import BurmeseNewsItem
+from burmese_news_scraper.items import BurmeseNewsItem
 
 class MDNGovLocalEducationSpider(scrapy.Spider):
     name = "mdngov_local_education"
