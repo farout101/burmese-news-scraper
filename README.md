@@ -5,9 +5,9 @@ This Scrapy project is designed to scrape news articles from various Burmese new
 ## Project Structure
 
 ```
-burmese_news/
+burmese_news_scraper/
 ├── scrapy.cfg
-├── burmese_news/
+├── burmese_news_scraper/
 │   ├── __init__.py
 │   ├── items.py
 │   ├── middlewares.py
@@ -27,9 +27,9 @@ burmese_news/
 ### Key Files
 
 - **`scrapy.cfg`**: The main configuration file for the Scrapy project.
-- **`burmese_news/settings.py`**: Project settings, including middleware, pipelines, and other configurations.
-- **`burmese_news/items.py`**: Defines the data structure (Scrapy Item) for the scraped data.
-- **`burmese_news/spiders/`**: The directory containing the spider files.
+- **`burmese_news_scraper/settings.py`**: Project settings, including middleware, pipelines, and other configurations.
+- **`burmese_news_scraper/items.py`**: Defines the data structure (Scrapy Item) for the scraped data.
+- **`burmese_news_scraper/spiders/`**: The directory containing the spider files.
 - **`deprecated_spiders/`**: Contains older versions of spiders that are no longer in use.
 - **`html_structures/`**: Contains HTML files for reference and debugging.
 
@@ -56,7 +56,7 @@ The scraper extracts the following information from each article:
 
     ```bash
     git clone <repository-url>
-    cd burmese_news
+    cd burmese_news_scraper
     ```
 
 2.  **Create a virtual environment (recommended):**
@@ -106,7 +106,7 @@ The scraped data will be saved in the specified output file (e.g., `mdngov_local
 
 ## Configuration
 
-The project's settings can be configured in the `burmese_news/settings.py` file. Some of the key settings include:
+The project's settings can be configured in the `burmese_news_scraper/settings.py` file. Some of the key settings include:
 
 - **`DOWNLOAD_DELAY`**: The delay between requests to the same website.
 - **`USER_AGENT`**: The user agent to use for requests.

@@ -1,6 +1,6 @@
-BOT_NAME = "burmese_news"
-SPIDER_MODULES = ["burmese_news.spiders"]
-NEWSPIDER_MODULE = "burmese_news.spiders"
+BOT_NAME = "burmese_news_scraper"
+SPIDER_MODULES = ["burmese_news_scraper.spiders"]
+NEWSPIDER_MODULE = "burmese_news_scraper.spiders"
 
 ROBOTSTXT_OBEY = False
 DOWNLOAD_DELAY = 1.5
@@ -24,7 +24,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 # Enable item pipelines (if you plan to store items in a DB or file)
 ITEM_PIPELINES = {
-    'burmese_news.pipelines.BurmeseNewsPipeline': 300,
+    'burmese_news_scraper.pipelines.BurmeseNewsPipeline': 300,
 }
 
 # Optional: limit concurrent requests
