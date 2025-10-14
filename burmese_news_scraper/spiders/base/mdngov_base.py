@@ -5,7 +5,7 @@ from burmese_news_scraper.items import BurmeseNewsItem
 class MDNGovBaseSpider(scrapy.Spider):
     allowed_domains = ["mdn.gov.mm"]
     MAX_LENGTH = 100
-    MAX_PAGES = 40  # Default, can be overridden
+    MAX_PAGES = 100  # Default, can be overridden
 
     def start_requests(self):
         """Use Playwright to render the page fully"""

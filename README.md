@@ -15,12 +15,23 @@ burmese_news_scraper/
 │   ├── settings.py
 │   └── spiders/
 │       ├── __init__.py
+│       ├── base/
+│       │   ├── __init__.py
+│       │   ├── mdngov_base.py
+│       │   └── myawady_base.py
+│       ├── mdngov_international_education.py
+│       ├── mdngov_international_entertainment.py
+│       ├── mdngov_international_political.py
+│       ├── mdngov_international_sports.py
 │       ├── mdngov_local_education.py
+│       ├── mdngov_local_entertainment.py
 │       ├── myawady_education.py
+│       ├── myawady_sports.py
 │       └── myawady_tech.py
 ├── deprecated_spiders/
 │   └── mdngov_local_education.py
 └── html_structures/
+    ├── mdngov_international_education.html
     └── mdngov_local_education.html
 ```
 
@@ -30,6 +41,7 @@ burmese_news_scraper/
 - **`burmese_news_scraper/settings.py`**: Project settings, including middleware, pipelines, and other configurations.
 - **`burmese_news_scraper/items.py`**: Defines the data structure (Scrapy Item) for the scraped data.
 - **`burmese_news_scraper/spiders/`**: The directory containing the spider files.
+- **`burmese_news_scraper/spiders/base/`**: This directory contains the base spiders that other spiders inherit from.
 - **`deprecated_spiders/`**: Contains older versions of spiders that are no longer in use.
 - **`html_structures/`**: Contains HTML files for reference and debugging.
 
@@ -37,8 +49,14 @@ burmese_news_scraper/
 
 This project includes the following spiders:
 
-- **`mdngov_local_education`**: Scrapes articles from the "Local Education" section of `mdn.gov.mm`. This spider uses Playwright to handle dynamic content.
+- **`mdngov_international_education`**: Scrapes articles from the "International Education" section of `mdn.gov.mm`.
+- **`mdngov_international_entertainment`**: Scrapes articles from the "International Entertainment" section of `mdn.gov.mm`.
+- **`mdngov_international_political`**: Scrapes articles from the "International Political" section of `mdn.gov.mm`.
+- **`mdngov_international_sports`**: Scrapes articles from the "International Sports" section of `mdn.gov.mm`.
+- **`mdngov_local_education`**: Scrapes articles from the "Local Education" section of `mdn.gov.mm`.
+- **`mdngov_local_entertainment`**: Scrapes articles from the "Local Entertainment" section of `mdn.gov.mm`.
 - **`myawady_education`**: Scrapes articles from the "Education" section of `myawady.net.mm`.
+- **`myawady_sports`**: Scrapes articles from the "Sports" section of `myawady.net.mm`.
 - **`myawady_tech`**: Scrapes articles from the "Tech" section of `myawady.net.mm`.
 
 ## Scraped Data

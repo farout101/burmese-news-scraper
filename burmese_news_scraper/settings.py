@@ -32,6 +32,10 @@ CONCURRENT_REQUESTS = 8
 
 FEED_EXPORT_ENCODING = 'utf-8'
 
+FEED_EXPORTERS = {
+    'xlsx': 'scrapy_xlsx.XlsxItemExporter',
+}
+
 # --------------------------------------------------------------
 
 # Enable Playwright handler

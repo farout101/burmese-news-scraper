@@ -5,7 +5,7 @@ from burmese_news_scraper.items import BurmeseNewsItem
 class MyawadyBaseSpider(scrapy.Spider):
     allowed_domains = ["myawady.net.mm"]
     MIN_LENGTH = 100  # Minimum length for a sentence to be considered valid
-    MAX_PAGES = 40  # Maximum number of pages to crawl
+    MAX_PAGES = 100  # Maximum number of pages to crawl
 
     def start_requests(self):
         for url in self.start_urls:
