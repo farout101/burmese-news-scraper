@@ -45,19 +45,48 @@ burmese_news_scraper/
 - **`deprecated_spiders/`**: Contains older versions of spiders that are no longer in use.
 - **`html_structures/`**: Contains HTML files for reference and debugging.
 
-## Spiders
+## Architectural Approach: Base Spiders
 
-This project includes the following spiders:
+This project employs a base spider architecture to promote code reusability and simplify the creation of new spiders. The core idea is to abstract the common scraping logic for each website into a base class. Each specific spider then inherits from the appropriate base class and only needs to define the specific `start_urls` and `category` for the section of the website it is targeting.
 
-- **`mdngov_international_education`**: Scrapes articles from the "International Education" section of `mdn.gov.mm`.
-- **`mdngov_international_entertainment`**: Scrapes articles from the "International Entertainment" section of `mdn.gov.mm`.
-- **`mdngov_international_political`**: Scrapes articles from the "International Political" section of `mdn.gov.mm`.
-- **`mdngov_international_sports`**: Scrapes articles from the "International Sports" section of `mdn.gov.mm`.
-- **`mdngov_local_education`**: Scrapes articles from the "Local Education" section of `mdn.gov.mm`.
-- **`mdngov_local_entertainment`**: Scrapes articles from the "Local Entertainment" section of `mdn.gov.mm`.
-- **`myawady_education`**: Scrapes articles from the "Education" section of `myawady.net.mm`.
-- **`myawady_sports`**: Scrapes articles from the "Sports" section of `myawady.net.mm`.
-- **`myawady_tech`**: Scrapes articles from the "Tech" section of `myawady.net.mm`.
+There are two base spiders:
+
+- **`mdngov_base.py`**: This is the base spider for `mdn.gov.mm`. It uses Playwright to handle the dynamic JavaScript-heavy nature of the website. The `MDNGovBaseSpider` class encapsulates the logic for:
+    - Initiating requests with Playwright.
+    - Navigating through pagination.
+    - Identifying and extracting article links.
+    - Parsing the full article content.
+    - Cleaning the HTML and extracting the relevant text.
+    - Processing the text into individual sentences.
+    - Yielding the cleaned data as `BurmeseNewsItem` objects.
+
+- **`myawady_base.py`**: This is the base spider for `myawady.net.mm`. This website is simpler and does not require JavaScript rendering, so this spider uses standard Scrapy requests. The `MyawadyBaseSpider` class encapsulates the logic for:
+    - Initiating standard Scrapy requests.
+    - Navigating through pagination.
+    - Identifying and extracting article links.
+    - Parsing the full article content.
+    - Extracting the relevant text.
+    - Processing the text into individual sentences.
+    - Yielding the cleaned data as `BurmeseNewsItem` objects.
+
+By inheriting from these base spiders, we can quickly create new spiders for different sections of the same website without rewriting the core scraping logic. This makes the project more maintainable and scalable.
+
+## Available Spiders
+
+### MDN Gov (`mdn.gov.mm`)
+
+- `mdngov_international_education`
+- `mdngov_international_entertainment`
+- `mdngov_international_political`
+- `mdngov_international_sports`
+- `mdngov_local_education`
+- `mdngov_local_entertainment`
+
+### Myawady (`myawady.net.mm`)
+
+- `myawady_education`
+- `myawady_sports`
+- `myawady_tech`
 
 ## Scraped Data
 
@@ -102,25 +131,11 @@ To run a spider, use the `scrapy crawl` command followed by the spider's name.
 
 **Example:**
 
-- To run the `mdngov_local_education` spider:
+```bash
+scrapy crawl mdngov_local_education -o output/mdngov_local_education.json
+```
 
-  ```bash
-  scrapy crawl mdngov_local_education -o mdngov_local_education.json
-  ```
-
-- To run the `myawady_education` spider:
-
-  ```bash
-  scrapy crawl myawady_education -o myawady_education.json
-  ```
-
-- To run the `myawady_tech` spider:
-
-  ```bash
-  scrapy crawl myawady_tech -o myawady_tech.json
-  ```
-
-The scraped data will be saved in the specified output file (e.g., `mdngov_local_education.json`).
+The scraped data will be saved in the specified output file.
 
 ## Configuration
 
