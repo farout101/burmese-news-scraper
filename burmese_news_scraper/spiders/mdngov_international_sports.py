@@ -2,12 +2,12 @@ import re
 import scrapy
 from burmese_news_scraper.items import BurmeseNewsItem
 
-class MDNGovLocalEducationSpider(scrapy.Spider):
-    name = "mdngov_local_education"
+class MDNGovInternationalSportsSpider(scrapy.Spider):
+    name = "mdngov_international_sports"
     allowed_domains = ["mdn.gov.mm"]
-    start_urls = ["https://www.mdn.gov.mm/my/local-education"]
+    start_urls = ["https://www.mdn.gov.mm/my/international-sports"]
 
-    MAX_LENGTH = 50
+    MAX_LENGTH = 100
     MAX_PAGES = 68  # Based on the pagination we found
 
     def start_requests(self):
@@ -130,7 +130,7 @@ class MDNGovLocalEducationSpider(scrapy.Spider):
                         if p.strip() 
                         and "copyright" not in p.lower() 
                         and "©" not in p
-                        and len(p.strip()) > 20  # Minimum length to avoid short fragments
+                        and len(p.strip()) > 30  # Minimum length to avoid short fragments
                     ]
                     if filtered_paragraphs:
                         paragraphs = filtered_paragraphs
@@ -152,7 +152,7 @@ class MDNGovLocalEducationSpider(scrapy.Spider):
                         if len(chunk) >= self.MAX_LENGTH:
                             item = BurmeseNewsItem()
                             item["text"] = chunk
-                            item["category"] = "Local Education"
+                            item["category"] = "International Sports"
                             item["source"] = "mdn.gov.mm"
                             item["url"] = response.url
                             yield item
