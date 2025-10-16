@@ -2,3 +2,4 @@ scrapy
 scrapy-playwright
 pandas
 openpyxl
+scrapy_xlsx
