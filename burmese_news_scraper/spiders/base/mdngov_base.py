@@ -5,19 +5,19 @@ from burmese_news_scraper.items import BurmeseNewsItem
 class MDNGovBaseSpider(scrapy.Spider):
     allowed_domains = ["mdn.gov.mm"]
     MAX_LENGTH = 100
-    MAX_PAGES = 100
+    MAX_PAGES = 500
 
-    def start_requests(self):
-        """Use Playwright to render the page fully"""
-        for url in self.start_urls:
-            yield scrapy.Request(
-                url,
-                meta={
-                    "playwright": True,
-                    "playwright_include_page": True,
-                },
-                callback=self.parse
-            )
+    # def start_requests(self):
+    #     """Use Playwright to render the page fully"""
+    #     for url in self.start_urls:
+    #         yield scrapy.Request(
+    #             url,
+    #             meta={
+    #                 "playwright": True,
+    #                 "playwright_include_page": True,
+    #             },
+    #             callback=self.parse
+    #         )
 
     async def parse(self, response):
         page = response.meta["playwright_page"]

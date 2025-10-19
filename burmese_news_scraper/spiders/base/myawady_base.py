@@ -4,12 +4,8 @@ from burmese_news_scraper.items import BurmeseNewsItem
 
 class MyawadyBaseSpider(scrapy.Spider):
     allowed_domains = ["myawady.net.mm"]
-    MIN_LENGTH = 100  # Minimum length for a sentence to be considered valid
-    MAX_PAGES = 100  # Maximum number of pages to crawl
-
-    def start_requests(self):
-        for url in self.start_urls:
-            yield scrapy.Request(url, meta={'page_count': 1}, callback=self.parse)
+    MIN_LENGTH = 100 
+    MAX_PAGES = 500  
 
     def parse(self, response):
         page_count = response.meta.get('page_count', 1)
@@ -39,7 +35,6 @@ class MyawadyBaseSpider(scrapy.Spider):
                 if chunk.strip() and re.search(r"[က-႟]", chunk):  # only yield non-empty chunks
                     item = BurmeseNewsItem()
                     item['text'] = chunk
-                    # Set category depending on spider
                     item['category'] = getattr(self, 'category', 'Uncategorized')
                     item['source'] = 'myawady.net.mm'
                     item['url'] = response.url

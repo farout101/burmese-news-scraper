@@ -1,9 +1,22 @@
 from .base.mdngov_base import MDNGovBaseSpider
-
+import scrapy
 class MDNGovLocalEducationSpider(MDNGovBaseSpider):
     name = "mdngov_local_education"
-
     LANGUAGE = "my"
-
-    start_urls = [f"https://www.mdn.gov.mm/{LANGUAGE}/local-education"]
     category = "local-education"
+
+    start_urls = [f"https://www.mdn.gov.mm/{LANGUAGE}/{category}"]
+    
+    START_PAGE = 30  # Change this number to control where to start
+
+    def start_requests(self):
+        """Start from a custom page without changing base spider logic."""
+        for url in self.start_urls:
+            if self.START_PAGE > 0:
+                # If the site uses ?page=N format
+                url = f"{url}?page={self.START_PAGE}"
+            yield scrapy.Request(
+                url,
+                meta={"playwright": True, "playwright_include_page": True},
+                callback=self.parse,
+            )
