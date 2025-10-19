@@ -7,7 +7,7 @@ class MDNGovLocalEntertainmentSpider(MDNGovBaseSpider):
 
     start_urls = [f"https://www.mdn.gov.mm/{LANGUAGE}/{category}"]
     
-    START_PAGE = 15  # Change this number to control where to start
+    START_PAGE = 10  # Change this number to control where to start
 
     def start_requests(self):
         """Start from a custom page without changing base spider logic."""
